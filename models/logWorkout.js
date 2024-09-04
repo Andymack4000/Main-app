@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const logWorkoutSchema = new mongoose.Schema({
-    /* date: {
+    date: {
         type: Date,
         required: true,
         default: Date.now
-    }, */
+    },
     trainingGoal: {
         type: String,
     },

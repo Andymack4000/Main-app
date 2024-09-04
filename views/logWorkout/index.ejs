@@ -1,7 +1,7 @@
 <h2>Previous workouts</h2>
 <form action="/logWorkout" method="get">
-    <!-- <label>Date</label>
-    <input type="date" name="date" value="<%= searchOptions.date  %>"> -->
+    <label>Date</label>
+    <input type="date" name="date" value="<%= searchOptions.date  %>">
     <label>Body Part</label>
     <input type="text" name="bodyPart" value="<%= searchOptions.bodyPart  %>">
     <label>Training Goal</label>
@@ -10,5 +10,5 @@
 </form>
 <br>
 <% logWorkout.forEach(workout => { %>
-    <div>Body Part: <%= workout["bodyPart"] %>, Training Goal: <%= workout["trainingGoal"] %></div>
+    <div>Date: <%= workout["date"].toISOString().split('T')[0] %> Body Part: <%= workout["bodyPart"] %>, Training Goal: <%= workout["trainingGoal"] %></div>
     <% }) %>
