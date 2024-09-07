@@ -1,0 +1,27 @@
+<div>
+    <label>Exercise</label>
+    <!-- potentially change this to text input -->
+    <select name="exercise">
+        <% logWorkout.forEach(workout => { %>
+
+            
+            <option label="<%= workout.bodyPart %>" value="<%= workout.bodyPart %>">
+        <% }) %>   
+        </select>    
+</div>
+<div>
+    <label>Sets</label>
+    <input type="number" name="sets" value="<%= exercise.sets %>">
+</div>
+<div>
+    <label>Reps</label>
+    <input type="number" name="reps" value="<%= exercise.reps %>">
+</div>
+<div>
+    <label>Weight</label>
+    <input type="number" name="weight" value="<%= exercise.weight %>">
+</div>
+<div>
+    <label>Comments</label>
+    <textarea name="comments" value="<%= exercise.comments %>"></textarea> 
+</div> 

@@ -11,7 +11,8 @@ const logWorkoutSchema = new mongoose.Schema({
     },
     bodyPart: {
         type: String
-    }
+    },
+    
 })
 
 module.exports = mongoose.model('LogWorkout', logWorkoutSchema)

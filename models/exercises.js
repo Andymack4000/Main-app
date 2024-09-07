@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 
 const exerciseSchema = new mongoose.Schema({
-    bodyPart: {
-        type: String,
-        required: true
-    },
-    workoutType: {
-        type: String,
-        required: true
-    },
     exercise: {
     type: String,
     required: true
@@ -27,8 +19,14 @@ const exerciseSchema = new mongoose.Schema({
     },
     comments: {
         type: String,
-        required: false
+        
+    },
+    logWorkout: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'LogWorkout'
     }
 })
 
+//IF CODE BREAKS TRY RESETING THIS TO 'Exercise'
 module.exports = mongoose.model('Exercise', exerciseSchema)
