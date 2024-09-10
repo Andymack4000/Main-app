@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     //console.log(searchOptions.bodyPart, searchOptions.date, searchOptions.trainingGoal)
     const workout = await LogWorkout.find(searchOptions)
     //console.log(workout[0], req.query)
-    res.render('logworkout/index', { logWorkout: workout, searchOptions: req.query})
+    res.render('logWorkout/index', { logWorkout: workout, searchOptions: req.query})
     } catch (e){
         console.log(e)
         res.redirect('/')
@@ -46,14 +46,14 @@ router.post('/', async (req, res) => {
     try {
         console.log('req.body', req.body.workoutDate)
         const newWorkout = await logWorkout.save()
-        console.log('logworkout.date', logWorkout.date)
+        console.log('logWorkout.date', logWorkout.date)
         //res.redirect(`logworkout/${newWorkout.id}`)
-        res.redirect('logworkout')
+        res.redirect('logWorkout')
     }
     catch (e) {
-        console.log('logworkout', logWorkout.date)
+        console.log('logWorkout', logWorkout.date)
         console.log(e)
-        res.render('logworkout/new', {
+        res.render('logWorkout/new', {
             logWorkout: logWorkout,
             errorMessage: `Something went wrong`
         })
@@ -62,7 +62,8 @@ router.post('/', async (req, res) => {
 
 
 router.get('/new', (req, res) =>{
-    res.render('logworkout/new', {logWorkout: new LogWorkout() })
+    //changed here
+    res.render('logWorkout/new', {logWorkout: new LogWorkout() })
 }) 
 
 
