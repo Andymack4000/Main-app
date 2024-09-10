@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
         console.log('req.body', req.body.workoutDate)
         const newWorkout = await logWorkout.save()
         console.log('logWorkout.date', logWorkout.date)
-        //res.redirect(`logworkout/${newWorkout.id}`)
+        //res.redirect(`logWorkout/${newWorkout.id}`)
         res.redirect('logWorkout')
     }
     catch (e) {
