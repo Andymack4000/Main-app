@@ -1,13 +1,17 @@
 <div>
-    <label>Exercise</label>
+    <label>Workout Date</label>
     <!-- potentially change this to text input -->
-    <select name="exercise">
+    <select name="id">
         <% logWorkout.forEach(workout => { %>
 
             
-            <option label="<%= workout.bodyPart %>" value="<%= workout.bodyPart %>">
+            <option label="<%= workout.date.toISOString().split('T')[0] %>" value="<%= workout.id%>">
         <% }) %>   
         </select>    
+</div>
+<div>
+    <label>Exercise</label>
+    <input type="text" name="exercise" value="<%= exercise.exercise %>">
 </div>
 <div>
     <label>Sets</label>

@@ -11,7 +11,7 @@ const logWorkoutSchema = new mongoose.Schema({
     },
     bodyPart: {
         type: String
-    },
+    }
     
 })
 
