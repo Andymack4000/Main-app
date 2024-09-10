@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const exerciseSchema = new mongoose.Schema({
     exercise: {
     type: String,
@@ -19,9 +20,9 @@ const exerciseSchema = new mongoose.Schema({
     },
     comments: {
         type: String,
-        
+        //required: false
     },
-    logWorkout: {
+    logWorkout: { 
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'LogWorkout'

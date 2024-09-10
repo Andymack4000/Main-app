@@ -1,0 +1,26 @@
+<h2>previous attempts at exercise</h2>
+<form action="/exercise" method="get">
+    <div>
+        <label>Exercise</label>
+        <!-- Maybe database of exercises input by user -->
+        <input type="text" name="exercise" value="<%= searchOptions.exercise  %>">
+    </div>
+    <!-- <div>
+
+        dont think I need this
+
+        <label>Reps</label>
+        <input type="number" name="reps" value="<%= searchOptions.reps  %>">
+    </div>
+    <div>
+        <label>Training Goal</label>
+        <input type="text" name="trainingGoal" value="<%= searchOptions.trainingGoal %>">
+    </div> -->
+    <button type="submit">Search</button>
+</form>
+<br>
+<% exercises.forEach(item => { %>
+    <div>Exercise: <%= item["exercise"] %> Reps: <%= item["reps"] %>, Sets: <%= item["sets"] %> Date: <%= item["id"] %></div>
+    <% }) %>
+
+<!--  -->
