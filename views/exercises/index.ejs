@@ -19,8 +19,11 @@
     <button type="submit">Search</button>
 </form>
 <br>
-<% exercises.forEach(item => { %>
-    <div>Exercise: <%= item["exercise"] %> Reps: <%= item["reps"] %>, Sets: <%= item["sets"] %> Date: <%= item["id"] %></div>
+<% exercises.forEach(exercise => { %>
+    <a href="/exercise/<%= exercise.id %>">
+    <div>Exercise: <%= exercise["exercise"] %> </div>
+    <!-- <div>Exercise: <%= exercise["exercise"] %> Reps: <%= exercise["reps"] %>, Sets: <%= exercise["sets"] %> Date: <%= exercise["id"] %></div> -->
+    </a>
     <% }) %>
 
 <!--  -->

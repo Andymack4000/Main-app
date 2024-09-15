@@ -3,7 +3,7 @@ const router = express.Router()
 const Exercise = require('../models/exercises')
 const datefns = require('date-fns')
 const LogWorkout = require('../models/logWorkout')
-const logWorkout = require('../models/logWorkout')
+//const logWorkout = require('../models/logWorkout')
 
 
 //all exercises Route
@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-//Add new exercise to workout Route - might not be needed
+//Add new exercise to workout Route 
 router.get('/new', async (req, res) => {
     renderNewPage(res, new Exercise())
  })
@@ -48,7 +48,12 @@ router.get('/new', async (req, res) => {
         logWorkout: req.body.id
      })
      try {
-         console.log(exercise.exercise, exercise.sets, exercise.reps, exercise.weight, exercise.comments, exercise.logWorkout )
+         console.log('exwercises logged',exercise.exercise, exercise.sets, exercise.reps, exercise.weight, exercise.comments, exercise.logWorkout)
+
+         //TRY TO ADD DATE FROM OBJECT ID
+         //console.log('should be object id', exercise.logWorkout)  
+         //exercise.date = exercise.findById(logWorkout)    
+
          //This saves the exercise variable that you created in the post route above
          const newExercise = await exercise.save()
          //res.redirect('exercises/${newExercise.id}')
@@ -61,24 +66,115 @@ router.get('/new', async (req, res) => {
      
  })
  
- async function renderNewPage(res, exercise, hasError = false){
-     try {
-         const logWorkout = await LogWorkout.find({})
-         const params = {
-             logWorkout: logWorkout,
-             exercise: exercise
-         }
-         if (hasError) {
-             params.errorMessage = 'Error adding Exercise'
-         }
-         res.render('exercises/new', params)
-         //console.err(error)
- 
-     } catch (e) {
-         console.log(e)
-         res.redirect('/exercise')
-     }
- }
+//Show Exercises route 
+router.get('/:id', async (req, res) => {
+    try {
+        const exercise = await Exercise.findById(req.params.id).populate().exec()
+        res.render('exercises/show', {exercise: exercise})
+    }
+    catch {
+        res.redirect('/')
+    }
+})
+
+//Edit exercises route
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const exercise = await Exercise.findById(req.params.id)
+
+        
+        console.log('is exercide.id being passed on?', exercise.id, exercise.sets)
+        renderEditPage(res, exercise)
+    }
+    catch {
+        res.redirect('/')
+    }
+    //renderNewPage(res, new Exercise())
+})
+
+ //Update exercise Route
+ router.put('/:id', async (req, res) => {
+    let exercise
+
+    try {   
+        exercise = await Exercise.findById(req.params.id)
+
+        exercise.exercise = req.body.exercise  
+        exercise.sets = req.body.sets
+        exercise.reps = req.body.reps
+        exercise.weight = req.body.weight
+        exercise.comments = req.body.comments
+        exercise.logWorkout = req.body.id
+
+        console.log('Check save object',exercise.weight, exercise.logWorkout)
+
+        //IF DATE ADDED THIS WILL NEED CHANGING TOO 
+        await exercise.save()
+        res.redirect(`/exercise/${exercise.id}`)
+        
+    } catch (e) {
+        if (exercise != null) {
+            renderEditPage(res, exercise, true)
+            console.log(e)  
+        } else {
+            res.redirect('/')
+        }
+    }   
+})
+
+router.delete('/:id', async (req, res) =>{
+    
+    let exercise 
+
+    try {
+        exercise = await Exercise.findById(req.params.id)
+        await exercise.deleteOne()
+        res.redirect('/exercise')
+    } catch (error) {
+        if (exercise != null) {
+            res.render('exercises/show', {
+                exercise: exercise,
+                errorMessage: 'Could not delete exercise'
+            })
+        } else {
+            console.log(error)
+            res.redirect('/')
+        }
+    }
+})
+
+async function renderNewPage(res, exercise, hasError = false){
+     renderFormPage(res, exercise, 'new', hasError)
+}
+
+async function renderEditPage(res, exercise, hasError = false){
+     renderFormPage(res, exercise, 'edit', hasError)
+}
+
+async function renderFormPage(res, exercise, form, hasError = false){
+    try {
+        const logWorkout = await LogWorkout.find({})
+        const params = {
+            logWorkout: logWorkout,
+            exercise: exercise
+        }
+        if (hasError){
+            if (form === 'edit') {
+            params.errorMessage = 'Error editing Exercise'
+        } else {
+            params.errorMessage = 'Error adding Exercise'
+            }
+        }
+        //console.log('woring?', params)
+        res.render(`exercises/${form}`, params)
+        //console.err(error)
+
+    } catch (e) {
+        console.log(e)
+        res.redirect('/exercise')
+    }
+}
+
 
 
 module.exports = router

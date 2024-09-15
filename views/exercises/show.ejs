@@ -1,0 +1,9 @@
+<h2><%= exercise.exercise %></h2>
+<div>Exercise: <%= exercise.exercise %></div>
+<div>Sets: <%= exercise.sets %></div>
+<div>Reps: <%= exercise.reps %></div>
+<div>Weight <%= exercise.weight %></div>
+<div>Comments: <%= exercise.comments %></div>
+<%- include('../partials/deleteForm', {url: `/exercise/${exercise.id}`}) %>
+    <a href="/exercise/<%= exercise.id %>">View</a>
+    <a href="/exercise/<%= exercise.id %>/edit">Edit</a>

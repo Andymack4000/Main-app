@@ -11,4 +11,8 @@
 <br>
 <% logWorkout.forEach(workout => { %>
     <div>Date: <%= workout["date"].toISOString().split('T')[0] %> Body Part: <%= workout["bodyPart"] %>, Training Goal: <%= workout["trainingGoal"] %></div>
+    <%- include('../partials/deleteForm', {url: `/logWorkout/${workout.id}`}) %>
+    <a href="/logWorkout/<%= workout.id %>">View</a>
+    <a href="/logWorkout/<%= workout.id %>/edit">Edit</a>
+    
     <% }) %>
