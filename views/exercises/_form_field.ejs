@@ -1,10 +1,7 @@
 <div>
     <label>Workout Date</label>
-    <!-- potentially change this to text input -->
     <select name="id">
-        <% logWorkout.forEach(workout => { %>
-
-            
+        <% logWorkout.forEach(workout => { %> 
             <option label="<%= workout.date.toISOString().split('T')[0] %>" value="<%= workout.id%>">
         <% }) %>   
         </select>    
@@ -17,10 +14,14 @@
     <label>Sets</label>
     <input type="number" name="sets" value="<%= exercise.sets %>">
 </div>
+
+<!-- if statement to go through set number and log reps for set -->
+
 <div>
     <label>Reps</label>
     <input type="number" name="reps" value="<%= exercise.reps %>">
 </div>
+
 <div>
     <label>Weight</label>
     <input type="number" name="weight" value="<%= exercise.weight %>">

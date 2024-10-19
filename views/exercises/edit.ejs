@@ -1,7 +1,6 @@
 <h2>Edit Exercise</h2>
 <p><%= exercise.id %></p>
 <form action="/exercise/<%= exercise.id %>?_method=PUT" method="post"> 
-<!-- <form action="/logWorkout/<%= logWorkout.id %>?_method=PUT" method="post"> -->
     <p>Exercise ID <%= exercise.id %> sets <%= exercise.sets %></p>
     <%- include('_form_field.ejs') %>
     <a href="/exercise">Cancel</a>

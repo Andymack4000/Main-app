@@ -35,29 +35,45 @@ router.get('/', async (req, res) => {
 router.get('/new', async (req, res) => {
     renderNewPage(res, new Exercise())
  })
+
+ //maybe we need another route to post sets/reps?
  
  //create exercise Route
  router.post('/', async (req, res) => {
+
+    //req.body.reps.forEach()
      const exercise = new Exercise({
-        //dae: req.query.date,
         exercise: req.body.exercise,  
         sets: req.body.sets,
-        reps: req.body.reps,
-        weight: req.body.weight,
+        reps: req.body.reps,  //need to send this as an array if poss - Encode reps as json and parse?
+        weight: req.body.weight, //need to send this as an array if poss
         comments: req.body.comments,
         logWorkout: req.body.id
      })
+
+     //  Useful info maybe? https://stackoverflow.com/questions/62745055/append-an-array-using-express-node-js-and-mongodb
+
+     //also https://youtube.com/watch?v=iG7py3THA4Q
+
+
      try {
          console.log('exwercises logged',exercise.exercise, exercise.sets, exercise.reps, exercise.weight, exercise.comments, exercise.logWorkout)
 
+         if (exercise.sets > 1) {
+            router(`/`) //Go to a page where we can add more sets
+         } else {
+            const newExercise = await exercise.save()
+            res.redirect(`exercise/${newExercise.id}`)
+         }
+
          //TRY TO ADD DATE FROM OBJECT ID
          //console.log('should be object id', exercise.logWorkout)  
-         //exercise.date = exercise.findById(logWorkout)    
+         //exercise.date = exercise.findById(logWorkout)   
+         
 
          //This saves the exercise variable that you created in the post route above
-         const newExercise = await exercise.save()
-         //res.redirect('exercises/${newExercise.id}')
-         res.redirect('exercise')
+         
+         //res.redirect('exercise')
      } catch (e) {
          //renderNewPage(res, exercise, true)
          console.log(e)
@@ -80,9 +96,7 @@ router.get('/:id', async (req, res) => {
 //Edit exercises route
 router.get('/:id/edit', async (req, res) => {
     try {
-        const exercise = await Exercise.findById(req.params.id)
-
-        
+        const exercise = await Exercise.findById(req.params.id) 
         console.log('is exercide.id being passed on?', exercise.id, exercise.sets)
         renderEditPage(res, exercise)
     }
